@@ -1,0 +1,12 @@
+{
+  "estlint.workingDirectories": [{ "mode": "auto" }],
+  "estlint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
