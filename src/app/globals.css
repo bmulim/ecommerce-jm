@@ -8,6 +8,7 @@ body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background-color: #000000;
 }
 
 /* Animações customizadas para dashboard */
@@ -90,6 +91,20 @@ body {
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(100%);
   }
 }
 

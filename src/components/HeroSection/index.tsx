@@ -3,8 +3,22 @@
 import { motion } from "framer-motion";
 import { ArrowRight, ShoppingBag, Zap } from "lucide-react";
 import Link from "next/link";
+import { useMemo } from "react";
+
+// Gerar posições fixas para evitar hydration mismatch
+const generateParticles = () => {
+  return Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    left: (i * 17 + 13) % 100,
+    top: (i * 23 + 7) % 100,
+    duration: 3 + (i % 3),
+    delay: (i % 4) * 0.5,
+  }));
+};
 
 export function HeroSection() {
+  const particles = useMemo(() => generateParticles(), []);
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -18,22 +32,22 @@ export function HeroSection() {
 
       {/* Efeito de partículas */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {particles.map((particle) => (
           <motion.div
-            key={i}
+            key={particle.id}
             className="absolute h-1 w-1 rounded-full bg-[#C2A537]"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
             }}
             animate={{
               opacity: [0, 1, 0],
               scale: [0, 1.5, 0],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: particle.delay,
             }}
           />
         ))}

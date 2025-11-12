@@ -104,6 +104,11 @@ export function Header() {
               Contato
             </Link>
           </li>
+          <li>
+            <Link href="/login" className={primaryButton}>
+              Entrar
+            </Link>
+          </li>
         </ul>
 
         <AnimatePresence>
@@ -142,6 +147,15 @@ export function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Contato
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/login"
+                    className={`${primaryButton} block w-full text-center`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Entrar
                   </Link>
                 </li>
               </ul>

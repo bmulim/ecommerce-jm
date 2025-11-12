@@ -68,17 +68,22 @@ export default function ProductsPage() {
 
     // Filtro de categorias
     if (filters.categories.length > 0) {
-      products = products.filter((p) => filters.categories.includes(p.category));
+      products = products.filter((p) =>
+        filters.categories.includes(p.category),
+      );
     }
 
     // Filtro de preço
     products = products.filter(
-      (p) => p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1],
+      (p) =>
+        p.price >= filters.priceRange[0] && p.price <= filters.priceRange[1],
     );
 
     // Filtro de marcas
     if (filters.brands.length > 0 && filters.brands[0] !== "") {
-      products = products.filter((p) => p.brand && filters.brands.includes(p.brand));
+      products = products.filter(
+        (p) => p.brand && filters.brands.includes(p.brand),
+      );
     }
 
     // Filtro de avaliação
@@ -129,9 +134,9 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black text-white pt-20 md:pt-24 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-black pt-20 text-white md:pt-24">
         <div className="text-center">
-          <div className="inline-block w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
+          <div className="border-primary mb-4 inline-block h-16 w-16 animate-spin rounded-full border-4 border-t-transparent" />
           <p className="text-zinc-400">Carregando produtos...</p>
         </div>
       </div>
@@ -139,15 +144,17 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20 md:pt-24">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-black pt-20 text-white md:pt-24">
+      <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold text-white mb-2">Nossos Produtos</h1>
+          <h1 className="mb-2 text-4xl font-bold text-white">
+            Nossos Produtos
+          </h1>
           <p className="text-zinc-400">
             Encontre os melhores suplementos para seus objetivos
           </p>
@@ -161,18 +168,18 @@ export default function ProductsPage() {
           className="mb-8"
         >
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+            <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-zinc-400" />
             <input
               type="text"
               placeholder="Buscar produtos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-zinc-900/50 backdrop-blur-sm border border-zinc-800/50 rounded-lg pl-12 pr-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-primary transition-colors"
+              className="focus:border-primary w-full rounded-lg border border-zinc-800/50 bg-zinc-900/50 py-3 pr-4 pl-12 text-white placeholder-zinc-500 backdrop-blur-sm transition-colors focus:outline-none"
             />
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           {/* Filters Sidebar */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -190,16 +197,17 @@ export default function ProductsPage() {
             className="lg:col-span-3"
           >
             {/* Sort and Count */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
               <p className="text-zinc-400">
-                {filteredProducts.length} produto{filteredProducts.length !== 1 ? "s" : ""}{" "}
-                encontrado{filteredProducts.length !== 1 ? "s" : ""}
+                {filteredProducts.length} produto
+                {filteredProducts.length !== 1 ? "s" : ""} encontrado
+                {filteredProducts.length !== 1 ? "s" : ""}
               </p>
 
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary transition-colors"
+                className="focus:border-primary rounded-lg border border-zinc-800/50 bg-zinc-900/50 px-4 py-2 text-white backdrop-blur-sm transition-colors focus:outline-none"
               >
                 <option value="relevance">Mais Relevantes</option>
                 <option value="price-asc">Menor Preço</option>
@@ -214,15 +222,15 @@ export default function ProductsPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-8">
+              <div className="mt-8 flex items-center justify-center gap-2">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="rounded-lg border border-zinc-800/50 bg-zinc-900/50 p-2 text-white hover:border-primary/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="hover:border-primary/50 rounded-lg border border-zinc-800/50 bg-zinc-900/50 p-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="h-5 w-5" />
                 </motion.button>
 
                 {[...Array(totalPages)].map((_, i) => {
@@ -241,13 +249,16 @@ export default function ProductsPage() {
                         className={`h-10 w-10 rounded-lg font-semibold transition-colors ${
                           currentPage === page
                             ? "bg-primary text-black"
-                            : "border border-zinc-800/50 bg-zinc-900/50 text-white hover:border-primary/50"
+                            : "hover:border-primary/50 border border-zinc-800/50 bg-zinc-900/50 text-white"
                         }`}
                       >
                         {page}
                       </motion.button>
                     );
-                  } else if (page === currentPage - 2 || page === currentPage + 2) {
+                  } else if (
+                    page === currentPage - 2 ||
+                    page === currentPage + 2
+                  ) {
                     return (
                       <span key={page} className="text-zinc-600">
                         ...
@@ -262,9 +273,9 @@ export default function ProductsPage() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="rounded-lg border border-zinc-800/50 bg-zinc-900/50 p-2 text-white hover:border-primary/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="hover:border-primary/50 rounded-lg border border-zinc-800/50 bg-zinc-900/50 p-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="h-5 w-5" />
                 </motion.button>
               </div>
             )}

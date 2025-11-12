@@ -51,7 +51,10 @@ export default function ProductCard({
 
       {/* Image */}
       <Link
-        href={`/products/${name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
+        href={`/products/${name
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9-]/g, "")}`}
       >
         <div className="relative flex h-64 items-center justify-center overflow-hidden bg-zinc-800/50">
           <div className="from-primary/20 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -62,7 +65,10 @@ export default function ProductCard({
       {/* Content */}
       <div className="p-6">
         <Link
-          href={`/products/${name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
+          href={`/products/${name
+            .toLowerCase()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "")}`}
         >
           <p className="text-primary mb-2 text-sm">{category}</p>
           <h3 className="group-hover:text-primary mb-3 line-clamp-2 text-lg font-bold text-white transition-colors">

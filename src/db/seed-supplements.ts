@@ -257,9 +257,7 @@ const products = [
     },
     howToUse:
       "Misture 1 scoop (5g) em 250ml de água. Consumir durante ou após o treino.",
-    variants: [
-      { name: "200g", color: "Limão", price: 4990, oldPrice: 7990 },
-    ],
+    variants: [{ name: "200g", color: "Limão", price: 4990, oldPrice: 7990 }],
   },
   {
     name: "Glutamina",
@@ -345,7 +343,8 @@ const products = [
       "Dosagem por dia": "2 cápsulas",
       Validade: "24 meses",
     },
-    howToUse: "Consumir 2 cápsulas por dia, preferencialmente com as refeições.",
+    howToUse:
+      "Consumir 2 cápsulas por dia, preferencialmente com as refeições.",
     variants: [{ name: "60 caps", color: "Padrão", price: 6990 }],
   },
   {
@@ -624,7 +623,8 @@ async function main() {
           imageUrl:
             "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=500",
           priceInCents: variantData.price,
-          oldPriceInCents: "oldPrice" in variantData ? variantData.oldPrice : undefined,
+          oldPriceInCents:
+            "oldPrice" in variantData ? variantData.oldPrice : undefined,
           slug: generateSlug(`${productData.name}-${variantData.name}`),
         });
       }

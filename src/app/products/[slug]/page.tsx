@@ -1,8 +1,7 @@
-import { motion } from "framer-motion";
-import { ChevronRight, Package, ShoppingCart, Star } from "lucide-react";
+import { Package } from "lucide-react";
 import Link from "next/link";
 
-import ProductDetailsClient from "@/components/ProductDetailsClient";
+import ProductPageClient from "@/components/ProductPageClient";
 
 // Mock data - substituir por dados reais do banco
 const products: Record<
@@ -154,16 +153,16 @@ export default async function ProductPage({
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         <div className="text-center">
-          <Package className="w-24 h-24 text-primary mx-auto mb-4" />
-          <h1 className="text-2xl font-bold mb-2">Produto não encontrado</h1>
-          <p className="text-zinc-400 mb-6">
+          <Package className="text-primary mx-auto mb-4 h-24 w-24" />
+          <h1 className="mb-2 text-2xl font-bold">Produto não encontrado</h1>
+          <p className="mb-6 text-zinc-400">
             O produto que você procura não existe ou foi removido.
           </p>
           <Link
             href="/products"
-            className="inline-block bg-primary hover:bg-primary/90 text-black font-bold px-6 py-3 rounded-lg transition-colors"
+            className="bg-primary hover:bg-primary/90 inline-block rounded-lg px-6 py-3 font-bold text-black transition-colors"
           >
             Ver todos os produtos
           </Link>
@@ -173,130 +172,6 @@ export default async function ProductPage({
   }
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20 md:pt-24">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 text-sm mb-8 flex-wrap"
-        >
-          <Link
-            href="/"
-            className="text-zinc-400 hover:text-primary transition-colors"
-          >
-            Início
-          </Link>
-          <ChevronRight className="w-4 h-4 text-zinc-600" />
-          <Link
-            href="/products"
-            className="text-zinc-400 hover:text-primary transition-colors"
-          >
-            Produtos
-          </Link>
-          <ChevronRight className="w-4 h-4 text-zinc-600" />
-          <Link
-            href={`/products?category=${product.category}`}
-            className="text-zinc-400 hover:text-primary transition-colors"
-          >
-            {product.category}
-          </Link>
-          <ChevronRight className="w-4 h-4 text-zinc-600" />
-          <span className="text-white font-semibold">{product.name}</span>
-        </motion.div>
-
-        <ProductDetailsClient product={product} />
-
-        {/* Related Products */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <h2 className="text-2xl font-bold text-white mb-8">
-            Produtos Relacionados
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedProducts.map((relatedProduct, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-zinc-900/50 backdrop-blur-sm rounded-xl border border-zinc-800/50 overflow-hidden group"
-              >
-                <Link
-                  href={`/products/${relatedProduct.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")}`}
-                >
-                  {/* Badge */}
-                  {relatedProduct.badge && (
-                    <div className="absolute top-4 left-4 bg-primary text-black px-3 py-1 rounded-full text-xs font-bold z-10">
-                      {relatedProduct.badge}
-                    </div>
-                  )}
-
-                  {/* Image */}
-                  <div className="relative aspect-square bg-zinc-900/50 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <ShoppingCart className="w-24 h-24 text-primary/30 group-hover:scale-110 transition-transform" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4">
-                    <p className="text-xs text-primary mb-1">
-                      {relatedProduct.brand}
-                    </p>
-                    <h3 className="text-white font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                      {relatedProduct.name}
-                    </h3>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${
-                            i < relatedProduct.rating
-                              ? "fill-primary text-primary"
-                              : "fill-zinc-700 text-zinc-700"
-                          }`}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Price */}
-                    <div className="flex items-baseline gap-2 mb-3">
-                      {relatedProduct.oldPrice && (
-                        <span className="text-sm text-zinc-500 line-through">
-                          R$ {relatedProduct.oldPrice.toFixed(2)}
-                        </span>
-                      )}
-                      <span className="text-lg font-bold text-primary">
-                        R$ {relatedProduct.price.toFixed(2)}
-                      </span>
-                    </div>
-
-                    {/* Stock */}
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-2 h-2 rounded-full ${relatedProduct.inStock ? "bg-green-500" : "bg-red-500"}`}
-                      />
-                      <span
-                        className={`text-xs ${relatedProduct.inStock ? "text-green-500" : "text-red-500"}`}
-                      >
-                        {relatedProduct.inStock ? "Em estoque" : "Indisponível"}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
+    <ProductPageClient product={product} relatedProducts={relatedProducts} />
   );
 }
