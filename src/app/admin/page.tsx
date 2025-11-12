@@ -1,13 +1,9 @@
 import {
   Activity,
-  ArrowDownRight,
-  ArrowUpRight,
-  BarChart3,
   Box,
   CreditCard,
   Layers3,
   LineChart,
-  Package,
   Percent,
   ShoppingBag,
   Sparkles,
@@ -17,12 +13,19 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { AdminHeader } from "@/components/Admin/AdminHeader";
+import { ChannelDistribution } from "@/components/Admin/ChannelDistribution";
+import { KpiCard } from "@/components/Admin/KpiCard";
+import { OperationalAlert } from "@/components/Admin/OperationalAlert";
+import { PipelineStatus } from "@/components/Admin/PipelineStatus";
+import { SalesChart } from "@/components/Admin/SalesChart";
+
 const kpis = [
   {
     label: "Receita total (30d)",
     value: "R$ 428.900",
     delta: "+18,4%",
-    trend: "up",
+    trend: "up" as const,
     subLabel: "vs. último mês",
     icon: LineChart,
   },
@@ -30,7 +33,7 @@ const kpis = [
     label: "Pedidos aprovados",
     value: "3.912",
     delta: "+6,2%",
-    trend: "up",
+    trend: "up" as const,
     subLabel: "taxa de conversão 3,1%",
     icon: ShoppingBag,
   },
@@ -38,7 +41,7 @@ const kpis = [
     label: "Ticket médio",
     value: "R$ 326,47",
     delta: "-1,8%",
-    trend: "down",
+    trend: "down" as const,
     subLabel: "meta mínima R$ 320",
     icon: CreditCard,
   },
@@ -46,14 +49,18 @@ const kpis = [
     label: "Clientes ativos",
     value: "18.042",
     delta: "+9,1%",
-    trend: "up",
+    trend: "up" as const,
     subLabel: "7,3% recorrentes",
     icon: Users,
   },
 ];
 
 const pipelineData = [
-  { label: "Em separação", value: 184, color: "from-emerald-500 to-emerald-400" },
+  {
+    label: "Em separação",
+    value: 184,
+    color: "from-emerald-500 to-emerald-400",
+  },
   { label: "Despachados", value: 132, color: "from-sky-500 to-sky-400" },
   { label: "Em transporte", value: 98, color: "from-amber-500 to-amber-400" },
   { label: "Pendentes", value: 26, color: "from-rose-500 to-rose-400" },
@@ -163,14 +170,12 @@ const bestSellers = [
 ];
 
 export default function AdminDashboardPage() {
-  const maxTrendValue = Math.max(...salesTrend.map((item) => item.value));
-
   return (
-    <div className="min-h-screen px-4 py-10 sm:px-6 lg:px-10">
+    <div className="min-h-screen px-4 pt-24 pb-10 sm:px-6 sm:pt-28 lg:px-10">
       <div className="mx-auto max-w-7xl space-y-10">
         <header className="flex flex-col gap-6 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-8 backdrop-blur-2xl lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-primary text-xs font-semibold uppercase tracking-[0.5em]">
+            <p className="text-primary text-xs font-semibold tracking-[0.5em] uppercase">
               Admin Console
             </p>
             <h1 className="mt-2 text-4xl font-semibold tracking-tight">
@@ -184,13 +189,13 @@ export default function AdminDashboardPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/"
-              className="rounded-2xl border border-white/20 px-4 py-2 text-sm text-zinc-200 transition hover:border-primary/60 hover:text-white"
+              className="hover:border-primary/60 rounded-2xl border border-white/20 px-4 py-2 text-sm text-zinc-200 transition hover:text-white"
             >
               Ver loja
             </Link>
             <Link
               href="/admin/login"
-              className="rounded-2xl bg-primary/90 px-4 py-2 text-sm font-semibold text-black transition hover:bg-primary"
+              className="bg-primary/90 hover:bg-primary rounded-2xl px-4 py-2 text-sm font-semibold text-black transition"
             >
               Alternar usuário
             </Link>
@@ -204,79 +209,18 @@ export default function AdminDashboardPage() {
         </section>
 
         <section className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-zinc-400">Volume diário</p>
-                <h3 className="text-2xl font-bold">R$ 184.410</h3>
-              </div>
-              <span className="flex items-center gap-1 text-sm font-semibold text-emerald-400">
-                <ArrowUpRight className="h-4 w-4" />
-                +12,3%
-              </span>
-            </div>
-            <div className="mt-8 flex h-56 items-end gap-3">
-              {salesTrend.map((item) => (
-                <div key={item.day} className="flex flex-1 flex-col items-center gap-2">
-                  <div
-                    className="w-full rounded-full bg-gradient-to-t from-primary/10 via-primary/30 to-primary"
-                    style={{ height: `${(item.value / maxTrendValue) * 100}%` }}
-                  />
-                  <span className="text-xs text-zinc-400">{item.day}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SalesChart
+            data={salesTrend}
+            currentValue="R$ 184.410"
+            delta="+12,3%"
+          />
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-zinc-400">Pipeline logístico</p>
-                <h3 className="text-2xl font-bold">Status em tempo real</h3>
-              </div>
-              <Truck className="h-6 w-6 text-primary" />
-            </div>
-            <div className="mt-6 space-y-4">
-              {pipelineData.map((stage) => (
-                <div key={stage.label}>
-                  <div className="flex items-center justify-between text-sm">
-                    <p className="text-zinc-300">{stage.label}</p>
-                    <p className="font-semibold text-white">{stage.value}</p>
-                  </div>
-                  <div className="mt-2 h-2 rounded-full bg-white/10">
-                    <div
-                      className={`h-full rounded-full bg-gradient-to-r ${stage.color}`}
-                      style={{ width: `${(stage.value / 184) * 90}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <PipelineStatus data={pipelineData} />
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-zinc-400">Canais de venda</p>
-                <h3 className="text-2xl font-bold">Distribuição %</h3>
-              </div>
-              <BarChart3 className="h-6 w-6 text-primary" />
-            </div>
-            <div className="mt-8 space-y-4">
-              {channelSplit.map((channel) => (
-                <div key={channel.label} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className={`h-3 w-3 rounded-full ${channel.accent}`} />
-                    <p className="text-sm text-zinc-300">{channel.label}</p>
-                  </div>
-                  <p className="text-lg font-semibold">{channel.value}%</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-6 text-xs text-zinc-400">
-              Meta: reduzir dependência de mídia paga &lt; 30% em 60 dias.
-            </p>
-          </div>
+          <ChannelDistribution
+            data={channelSplit}
+            note="Meta: reduzir dependência de mídia paga < 30% em 60 dias."
+          />
         </section>
 
         <section className="grid gap-6 lg:grid-cols-3">
@@ -284,11 +228,13 @@ export default function AdminDashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-zinc-400">Últimas movimentações</p>
-                <h3 className="text-2xl font-bold text-white">Pedidos recentes</h3>
+                <h3 className="text-2xl font-bold text-white">
+                  Pedidos recentes
+                </h3>
               </div>
               <Link
                 href="/admin/pedidos"
-                className="text-sm text-primary transition hover:text-white"
+                className="text-primary text-sm transition hover:text-white"
               >
                 Ver todos
               </Link>
@@ -296,7 +242,7 @@ export default function AdminDashboardPage() {
             <div className="mt-6 overflow-x-auto">
               <table className="w-full text-left text-sm text-zinc-300">
                 <thead>
-                  <tr className="text-xs uppercase tracking-widest text-zinc-500">
+                  <tr className="text-xs tracking-widest text-zinc-500 uppercase">
                     <th className="py-3">Pedido</th>
                     <th>Cliente</th>
                     <th>Valor</th>
@@ -331,7 +277,7 @@ export default function AdminDashboardPage() {
                 <p className="text-sm text-zinc-400">Produtos em destaque</p>
                 <h3 className="text-2xl font-bold">Top sellers</h3>
               </div>
-              <Sparkles className="h-6 w-6 text-primary" />
+              <Sparkles className="text-primary h-6 w-6" />
             </div>
             <div className="mt-6 space-y-4">
               {bestSellers.map((item) => (
@@ -344,7 +290,9 @@ export default function AdminDashboardPage() {
                       <p className="font-semibold text-white">{item.name}</p>
                       <p className="text-xs text-zinc-500">{item.sku}</p>
                     </div>
-                    <span className="text-xs text-emerald-400">{item.growth}</span>
+                    <span className="text-xs text-emerald-400">
+                      {item.growth}
+                    </span>
                   </div>
                   <div className="mt-4 flex items-center justify-between text-sm">
                     <div>
@@ -369,18 +317,22 @@ export default function AdminDashboardPage() {
                 <p className="text-sm text-zinc-400">Centros de comando</p>
                 <h3 className="text-2xl font-bold">Acesso rápido</h3>
               </div>
-              <Layers3 className="h-6 w-6 text-primary" />
+              <Layers3 className="text-primary h-6 w-6" />
             </div>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {quickLinks.map((link) => (
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="flex h-full flex-col rounded-2xl border border-white/5 bg-black/40 p-4 transition hover:border-primary/60 hover:bg-black/60"
+                  className="hover:border-primary/60 flex h-full flex-col rounded-2xl border border-white/5 bg-black/40 p-4 transition hover:bg-black/60"
                 >
-                  <link.icon className="mb-3 h-6 w-6 text-primary" />
-                  <p className="text-lg font-semibold text-white">{link.title}</p>
-                  <p className="mt-2 text-sm text-zinc-400">{link.description}</p>
+                  <link.icon className="text-primary mb-3 h-6 w-6" />
+                  <p className="text-lg font-semibold text-white">
+                    {link.title}
+                  </p>
+                  <p className="mt-2 text-sm text-zinc-400">
+                    {link.description}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -392,7 +344,7 @@ export default function AdminDashboardPage() {
                 <p className="text-sm text-zinc-400">Saúde operacional</p>
                 <h3 className="text-2xl font-bold">Alertas e tarefas</h3>
               </div>
-              <Box className="h-6 w-6 text-primary" />
+              <Box className="text-primary h-6 w-6" />
             </div>
             <div className="mt-6 space-y-4">
               <OperationalAlert
@@ -414,70 +366,6 @@ export default function AdminDashboardPage() {
           </div>
         </section>
       </div>
-    </div>
-  );
-}
-
-function KpiCard({
-  label,
-  value,
-  delta,
-  trend,
-  subLabel,
-  icon: Icon,
-}: (typeof kpis)[number] & { icon: typeof LineChart }) {
-  const isPositive = trend === "up";
-
-  return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">
-            {label}
-          </p>
-          <h3 className="mt-4 text-3xl font-semibold">{value}</h3>
-          <p className="mt-2 text-xs text-zinc-400">{subLabel}</p>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-black/40 p-3 text-primary">
-          <Icon className="h-6 w-6" />
-        </div>
-      </div>
-      <div
-        className={`mt-6 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${
-          isPositive
-            ? "bg-emerald-500/10 text-emerald-300"
-            : "bg-rose-500/10 text-rose-300"
-        }`}
-      >
-        {isPositive ? (
-          <ArrowUpRight className="h-4 w-4" />
-        ) : (
-          <ArrowDownRight className="h-4 w-4" />
-        )}
-        {delta}
-      </div>
-    </div>
-  );
-}
-
-function OperationalAlert({
-  title,
-  description,
-  badge,
-}: {
-  title: string;
-  description: string;
-  badge: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/5 bg-black/30 p-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-white">{title}</p>
-        <span className="rounded-full border border-white/10 px-2 py-1 text-xs text-zinc-400">
-          {badge}
-        </span>
-      </div>
-      <p className="mt-2 text-sm text-zinc-400">{description}</p>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black px-4 py-12 pt-20 text-white md:pt-24">
+    <div className="flex min-h-screen items-center justify-center bg-black px-4 pt-24 pb-10 text-white sm:pt-28">
       <div className="w-full max-w-md">
         {/* Logo/Title */}
         <motion.div

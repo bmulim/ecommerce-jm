@@ -1,6 +1,6 @@
 export default function ProductDetailLoading() {
   return (
-    <div className="min-h-screen bg-black pt-20 pb-12 md:pt-24">
+    <div className="min-h-screen bg-black pt-24 pb-10 sm:pt-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Skeleton */}
         <div className="mb-8 animate-pulse">

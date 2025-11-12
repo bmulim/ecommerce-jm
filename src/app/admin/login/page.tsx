@@ -35,22 +35,24 @@ export default function AdminLoginPage() {
       if (isValid) {
         router.push("/admin");
       } else {
-        setError("Credenciais inválidas. Verifique os dados e tente novamente.");
+        setError(
+          "Credenciais inválidas. Verifique os dados e tente novamente.",
+        );
       }
       setLoading(false);
     }, 600);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,_#18181b,_#09090b)] px-4 text-white">
+    <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,_#18181b,_#09090b)] px-4 pt-24 pb-10 text-white sm:pt-28">
       <div className="w-full max-w-4xl overflow-hidden rounded-3xl border border-white/5 bg-white/5 backdrop-blur-xl">
         <div className="grid gap-0 lg:grid-cols-2">
-          <div className="relative hidden flex-col justify-between border-r border-white/5 bg-gradient-to-br from-primary/10 to-transparent px-8 py-10 lg:flex">
+          <div className="from-primary/10 relative hidden flex-col justify-between border-r border-white/5 bg-gradient-to-br to-transparent px-8 py-10 lg:flex">
             <div>
-              <p className="text-primary mb-2 text-sm font-semibold uppercase tracking-[0.2em]">
+              <p className="text-primary mb-2 text-sm font-semibold tracking-[0.2em] uppercase">
                 Painel Mestre
               </p>
-              <h1 className="text-4xl font-bold leading-tight">
+              <h1 className="text-4xl leading-tight font-bold">
                 Controle total do ecossistema JM Store
               </h1>
               <p className="mt-4 text-sm text-zinc-300">
@@ -81,7 +83,7 @@ export default function AdminLoginPage() {
 
           <div className="px-8 py-10">
             <div className="mb-8 text-center lg:text-left">
-              <p className="text-primary mb-2 text-xs font-semibold uppercase tracking-[0.3em]">
+              <p className="text-primary mb-2 text-xs font-semibold tracking-[0.3em] uppercase">
                 Área Restrita
               </p>
               <h2 className="text-3xl font-bold">Login Administrativo</h2>
@@ -97,12 +99,12 @@ export default function AdminLoginPage() {
                   E-mail corporativo
                 </label>
                 <div className="relative">
-                  <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+                  <Mail className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="admin-email"
                     type="email"
                     placeholder="admin@jmstore.com"
-                    className="w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-4 pl-12 text-sm text-white placeholder:text-zinc-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="focus:border-primary focus:ring-primary/30 w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-4 pl-12 text-sm text-white placeholder:text-zinc-500 focus:ring-2 focus:outline-none"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     required
@@ -111,16 +113,19 @@ export default function AdminLoginPage() {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="admin-password" className="text-sm font-semibold">
+                <label
+                  htmlFor="admin-password"
+                  className="text-sm font-semibold"
+                >
                   Chave mestra
                 </label>
                 <div className="relative">
-                  <Lock className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+                  <Lock className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="admin-password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-12 pl-12 text-sm text-white placeholder:text-zinc-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="focus:border-primary focus:ring-primary/30 w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-12 pl-12 text-sm text-white placeholder:text-zinc-500 focus:ring-2 focus:outline-none"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     required
@@ -128,7 +133,7 @@ export default function AdminLoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-2 text-zinc-400 transition hover:bg-white/10"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-2 text-zinc-400 transition hover:bg-white/10"
                     aria-label="Alternar visibilidade da senha"
                   >
                     {showPassword ? (
@@ -145,14 +150,14 @@ export default function AdminLoginPage() {
                   Código de autorização (MFA)
                 </label>
                 <div className="relative">
-                  <ShieldOff className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+                  <ShieldOff className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="admin-code"
                     type="text"
                     inputMode="numeric"
                     maxLength={6}
                     placeholder="000000"
-                    className="w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-4 pl-12 text-sm tracking-[0.4em] text-white placeholder:text-zinc-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="focus:border-primary focus:ring-primary/30 w-full rounded-2xl border border-white/10 bg-black/40 py-3 pr-4 pl-12 text-sm tracking-[0.4em] text-white placeholder:text-zinc-500 focus:ring-2 focus:outline-none"
                     value={accessCode}
                     onChange={(event) => setAccessCode(event.target.value)}
                     required
@@ -175,7 +180,7 @@ export default function AdminLoginPage() {
                 whileTap={{ scale: 0.99 }}
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
+                className="bg-primary hover:bg-primary/90 flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold tracking-[0.2em] text-black uppercase transition disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? (
                   <>
@@ -208,4 +213,3 @@ export default function AdminLoginPage() {
     </div>
   );
 }
-

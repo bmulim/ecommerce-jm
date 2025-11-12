@@ -44,7 +44,7 @@ export default function ProductPageClient({
   relatedProducts,
 }: ProductPageClientProps) {
   return (
-    <div className="min-h-screen bg-black pt-20 text-white md:pt-24">
+    <div className="min-h-screen bg-black pt-24 pb-10 text-white sm:pt-28">
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Breadcrumb */}
         <motion.div

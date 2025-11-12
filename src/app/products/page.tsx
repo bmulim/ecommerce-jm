@@ -134,7 +134,7 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black pt-20 text-white md:pt-24">
+      <div className="flex min-h-screen items-center justify-center bg-black pt-24 pb-10 text-white sm:pt-28">
         <div className="text-center">
           <div className="border-primary mb-4 inline-block h-16 w-16 animate-spin rounded-full border-4 border-t-transparent" />
           <p className="text-zinc-400">Carregando produtos...</p>
@@ -144,7 +144,7 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black pt-20 text-white md:pt-24">
+    <div className="min-h-screen bg-black pt-24 pb-10 text-white sm:pt-28">
       <div className="mx-auto max-w-7xl px-4 py-8">
         {/* Header */}
         <motion.div
