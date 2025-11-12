@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Beef, Dumbbell, Flame, Droplets, Zap, Heart } from "lucide-react";
+import { Beef, Droplets, Dumbbell, Flame, Heart, Zap } from "lucide-react";
 import Link from "next/link";
 
 interface Category {
