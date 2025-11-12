@@ -10,7 +10,7 @@ export function HeroSection() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="relative flex min-h-[600px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black md:min-h-[700px] lg:min-h-[800px]"
+      className="relative flex min-h-[600px] w-full items-center justify-center overflow-hidden bg-gradient-to-b from-black via-[#0a0a0a] to-black pt-16 md:min-h-[700px] md:pt-20 lg:min-h-[800px]"
     >
       {/* Background decorativo */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#C2A537]/20 via-transparent to-transparent"></div>
@@ -96,13 +96,13 @@ export function HeroSection() {
             </motion.button>
           </Link>
 
-          <Link href="/about">
+          <Link href="/contact">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="rounded-lg border-2 border-[#C2A537]/50 px-8 py-4 font-semibold text-[#C2A537] backdrop-blur-sm transition-all duration-300 hover:border-[#C2A537] hover:bg-[#C2A537]/10"
             >
-              Sobre Nós
+              Entre em Contato
             </motion.button>
           </Link>
         </motion.div>

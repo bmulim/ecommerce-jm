@@ -96,7 +96,15 @@ export const productTable = pgTable("product", {
     .references(() => categoryTable.id, { onDelete: "set null" }),
   name: text().notNull(),
   slug: text().notNull().unique(),
+  brand: text().notNull(),
   description: text().notNull(),
+  rating: integer().notNull().default(5),
+  reviews: integer().notNull().default(0),
+  inStock: boolean("in_stock").notNull().default(true),
+  badge: text(),
+  benefits: text().array(),
+  specifications: text(),
+  howToUse: text("how_to_use"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -117,6 +125,7 @@ export const productVariantTable = pgTable("product_variant", {
   slug: text().notNull().unique(),
   color: text().notNull(),
   priceInCents: integer("price_in_cents").notNull(),
+  oldPriceInCents: integer("old_price_in_cents"),
   imageUrl: text("image_url").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

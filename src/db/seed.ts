@@ -584,8 +584,12 @@ async function main() {
         id: productId,
         name: productData.name,
         slug: productSlug,
+        brand: "Nike",
         description: productData.description,
         categoryId: categoryId,
+        rating: 5,
+        reviews: 100,
+        inStock: true,
       });
 
       // Inserir variantes do produto

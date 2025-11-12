@@ -14,7 +14,6 @@ export function Header() {
 
   const isHomePage = pathname === "/";
   const isProductsPage = pathname?.startsWith("/products");
-  const isAboutPage = pathname?.startsWith("/about");
   const isContactPage = pathname?.startsWith("/contact");
 
   const buttonClasses =
@@ -99,14 +98,6 @@ export function Header() {
           </li>
           <li>
             <Link
-              href="/about"
-              className={isAboutPage ? primaryButton : secondaryButton}
-            >
-              Sobre
-            </Link>
-          </li>
-          <li>
-            <Link
               href="/contact"
               className={isContactPage ? primaryButton : secondaryButton}
             >
@@ -142,15 +133,6 @@ export function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Produtos
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className={`${isAboutPage ? primaryButton : secondaryButton} block w-full text-center`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Sobre
                   </Link>
                 </li>
                 <li>

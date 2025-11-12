@@ -9,6 +9,7 @@ import {
   Shield,
   Truck,
 } from "lucide-react";
+import Link from "next/link";
 
 interface Benefit {
   id: number;
@@ -160,13 +161,15 @@ export function BenefitsSection() {
           <p className="mb-6 text-lg text-gray-300">
             Comece agora mesmo com os melhores suplementos do mercado
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="rounded-lg bg-gradient-to-r from-[#C2A537] to-[#D4B547] px-10 py-4 text-lg font-semibold text-black transition-all duration-300 hover:from-[#D4B547] hover:to-[#E6C658] hover:shadow-lg hover:shadow-[#C2A537]/30"
-          >
-            Explorar Produtos
-          </motion.button>
+          <Link href="/products">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="rounded-lg bg-gradient-to-r from-[#C2A537] to-[#D4B547] px-10 py-4 text-lg font-semibold text-black transition-all duration-300 hover:from-[#D4B547] hover:to-[#E6C658] hover:shadow-lg hover:shadow-[#C2A537]/30"
+            >
+              Explorar Produtos
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </motion.section>
