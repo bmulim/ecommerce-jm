@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { AdminHeader } from "@/components/AdminHeader";
+
 export const metadata: Metadata = {
   title: "Painel Administrativo | JM Store",
   description:
@@ -13,6 +15,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-zinc-900 text-white">
+      <AdminHeader />
       {children}
     </div>
   );
